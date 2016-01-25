@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="US-ASCII"?>
+<!DOCTYPE rfc SYSTEM "rfc2629.dtd" [
+
+<!-- One method to get references from the online citation libraries.
+     There has to be one entity for each item to be referenced. 
+     An alternate method (rfc include) is described in the references. -->
+<!ENTITY RFC2119 SYSTEM "http://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.2119.xml">
+<!ENTITY RFC2629 SYSTEM "http://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.2629.xml">
+<!ENTITY RFC3552 SYSTEM "http://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.3552.xml">
+<!ENTITY I-D.narten-iana-considerations-rfc2434bis SYSTEM "http://xml2rfc.ietf.org/public/rfc/bibxml3/reference.I-D.narten-iana-considerations-rfc2434bis.xml">
+]>
+
+<?xml-stylesheet type='text/xsl' href='rfc2629.xslt' ?>
+
+<?rfc strict="yes" ?>
+<?rfc toc="yes"?>
+<?rfc tocdepth="4"?>
+<?rfc symrefs="yes"?>
+<?rfc sortrefs="yes" ?>
+<?rfc compact="yes" ?>
+<?rfc subcompact="no" ?>
+
+<rfc category="info" docName="internet-draft" ipr="trust200902">
+  <front>
+    <title abbrev="">The Alpha Male Pack Protocol</title>
+
+    <author fullname="Leland Andrew Olsen" initials="LAO" role="editor"
+            surname="Olsen">
+      <organization>OS3 LLC</organization>
+
+      <address>
+        <postal>
+          <street></street>
+          <city>Littleton</city>
+          <region>USA West</region>
+          <code>Colorado</code>
+          <country>USA</country>
+        </postal>
+        <phone>+1.801.360.4086</phone>
+        <email>andy@59clouds.com</email>
+      </address>
+    </author>
+
+    <date month="October" year="2015" />
+    <area>General</area>
+    <workgroup>Internet Engineering Task Force</workgroup>
+    <keyword>Distributed</keyword>
+    <keyword>Leadership</keyword>
+    <keyword>Protocol</keyword>
+
+    <abstract>
+      <t>A protocol to allow many disparate actors to assemble
+      spontaneously and form a leadership heirarchy.</t>
+    </abstract>
+  </front>
+
+  <middle>
+
+    <section title="Introduction">
+      <section title="Impetus">
+        <t>This protocol exists as a way to allow any number of equal
+        peers to come together and choose a leadership heierarchy.</t>
+      </section>
+
+      <section title="Prerequisites">
+        <t>This protocol presumes the existence of Global Timestamp
+        Protocol Server to allow the various peers to agree what time
+        it is.</t>
+        <t>This protocol also uses the Pseudo random identity
+        protocol.</t>
+      </section>
+
+      <section title="Overview">
+        <t>Given any number of nodes between 2 and infinity, already
+        connected together via a communications channel, each node
+        will perform the following actions:
+        <list style="symbols">
+          <t>Achieve Peer Group Consensus and agree to a definite time
+          for the election with the Peer Global Time Consensus.</t>
+          <t>At the agreed to time, broadcast the blockchain id from
+          the Global TimeStamp Server and a personal peer random
+          commit string to all the other peers in the group.</t>
+          <t>Receive all other votes from all other peers.</t>
+          <t>Walk the list of peers. For each peer, hash the timestamp
+          block id and the random commit string from each peer. Now
+          sort the list of peers based on this new hash value. Reject
+          any peer who does not have a valid timestamp blockchain id
+          or random commit string.</t>
+          <t>Now walk the list of nodes and hash all the random
+          commits strings in the new order. This is the election
+          key.</t>
+          <t>Finally, walk the list of peers one last time and hash
+          the random commit string with the election key. Sort the
+          list of peers by this final election hash and hash the list
+          one last time.</t>
+          <t>rebroadcast this final hash and all peers who come up
+          with the same value have now all agreed to the order of
+          succession to be king.</t>
+          <t>Finally, apply some organizational model to the list of
+          peers in the order everyone has agreed to to form a working
+          government.</t>
+        </list>
+        </t>
+      </section>
+    </section>
+
+    <section title="Peer Global Time Consensus">
+      <t>Given a list of peers, each of whom is unknown to the other,
+      a dance must be performed to identity all parties and to agree
+      what time it is. Here are the steps for doing this:
+        <list style="symbols">
+          <t>Generate and broadcast a pseudo identity.</t>
+          <t>Collect all other broadcast psuedo identities.</t>
+          <t>Choose a Global TimeStamp 2 mins in the future and send
+          the nomination to all other parties.</t>
+          <t>Receive the other nomination from all other peers.</t>
+          <t>Iterate through the list and choose the most popular
+          TimeStamp from the list of nominations and rebroadcast this
+          as a vote.</t>
+          <t>Receive the rebroadcast votes of all the other peers.</t>
+          <t>Keep all the peers who shared your vote and discard the
+          rest. You now have your known list of peers and the time you
+          have agreed to hold the election.</t>
+        </list>
+      </t>
+    </section>
+
+    <section title="government models">
+      <section title="Monarchy">
+        <t>The first peer on the list is the king.</t>
+        <t>The next 10 are dukes.</t>
+        <t>The next 10 go to the first duke as Earls. The next 10 to
+        the 2nd Duke as Earls etc until all Duke's have 10 Earls.</t>
+        <t>The next 10 go the first Earl as Viscounts following the
+        same pattenrs until all Earls have 10 viscounts.</t>
+        <t>The next 10 go to first viscount as Barons repeating the
+        pattern until all Viscounts have 10 Barons.</t>
+        <t>The next 10 go to the first Baron as Knight of the
+        Realm. Repeast.</t>
+        <t>The next 10 go to the first Knight as Serfs.</t>
+      </section>
+
+      <section title="Empire">
+        <t>The first peer in the list is declared the Emporer.</t>
+        <t>The next 64 peers in the list are assigned to the Senate,
+        dedicated to supporting the Emporer.</t>
+        <t>The remainder of the list of peers is divided into 64 list
+        of peers. The first remaining peer goes in the first slot of
+        list one and the second remaining peer goes in the first slot
+        of group 2 etc until the list has been exhausted and the 64
+        lists are as full as possible.</t>
+        <t>Each list is then subdivided along the same lines as the
+        Monarchy with the first peer in each list being King and
+        swearing fealty to the corresponding Senator who then reports
+        to the Emporer.</t>
+      </section>
+
+      <section title="Confederacy">
+        <t>The list of peers is divided into 64 list of peers. The
+        first peer goes in the first slot of list one and the second
+        peer goes in the first slot of group 2 etc until the list has
+        been exhausted and the 64 lists are as full as possible.</t>
+        <t>Each of the 64 lists is then organized into a
+        government.</t> <t>The first peer is President, the next 100
+        are Senators, the next 1024 are house of commons, and the
+        remainder of the list is even divided into 1024 lists.</t>
+      </section>
+
+      <section title="Quorum">
+        <t>The list of peers is divided into an unknown number of
+        quorums, each with 64 peers. Each of these Quorums is known as
+        the Quorum of the People.</t>
+        <t>The senior member of each Quorum of the People also joins a
+        list called the Quorum of the County.</t>
+        <t>The senior member of each Quorum of the County also joins a
+        list called the Quorum of the State.</t>
+        <t>The senior member of each Quorum of the State also joins a
+        list called the Quorum of the Nation.</t>
+        <t>The senior member of each Quorum of the Nation also joins a
+        list called the Quorum of the Confederacy.</t>
+      </section>
+
+      <section title="Feminocracy">
+        <t>The list of peers is divided into an equal number of groups
+        of a single peer each. Each peer spend all his time arguing
+        with every other peer about who has the best hair.</t>
+      </section>
+
+    </section>
+
+    <?rfc needLines="8" ?>
+
+    <section anchor="Acknowledgements" title="Acknowledgements">
+      <t>This template was derived from an initial version written by Pekka
+      Savola and contributed by him to the xml2rfc project.</t>
+
+      <t>This document is part of a plan to make xml2rfc indispensable.</t>
+    </section>
+
+    <!-- Possibly a 'Contributors' section ... -->
+
+    <section anchor="IANA" title="IANA Considerations">
+      <t>This memo includes no request to IANA.</t>
+
+      <t>All drafts are required to have an IANA considerations section (see
+       for a guide). If the draft does not require IANA to do
+      anything, the section contains an explicit statement that this is the
+      case (as above). If there are no requirements for IANA, the section will
+      be removed during conversion into an RFC by the RFC Editor.</t>
+    </section>
+
+    <section anchor="Security" title="Security Considerations">
+      <t>All drafts are required to have a security considerations section.
+      See for a guide.</t>
+    </section>
+  </middle>
+
+  <!--  *****BACK MATTER ***** -->
+
+  <back>
+    <section anchor="app-additional" title="Additional Stuff">
+      <t>This becomes an Appendix.</t>
+    </section>
+  </back>
+</rfc>
